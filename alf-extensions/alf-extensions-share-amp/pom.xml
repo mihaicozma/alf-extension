@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>alf-extensions-share-amp</artifactId>
+    <name>Alfresco Share AMP Module</name>
+    <packaging>amp</packaging>
+    <description>This is a sample Alfresco Share AMP project, depended upon by the share WAR module</description>
+
+    <parent>
+        <groupId>org.glotech</groupId>
+        <artifactId>alf-extensions</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- 
+        SDK properties have sensible defaults in the SDK parent,
+        but you can override the properties below to use another version.
+        For more available properties see the alfresco-sdk-parent POM.
+       -->
+    <properties>
+        <!-- Defines the target WAR artifactId to run this amp, only used with the -Pamp-to-war switch
+             Allowed values: alfresco | share. In this case it's configured to use OOTB share -->
+        <app.amp.client.war.artifactId>share</app.amp.client.war.artifactId>
+
+        <!-- Defines the log level used in log4j.properties -->
+        <app.log.root.level>WARN</app.log.root.level>
+    </properties>
+
+    <!-- Following dependencies are needed for compiling Java code in src/main/java; 
+         <scope>provided</scope> is inherited for each of the following; 
+         for more info, please refer to alfresco-platform-distribution POM -->
+<dependencies>
+
+        <dependency>
+            <groupId>${alfresco.groupId}</groupId>
+            <artifactId>share</artifactId>
+            <version>${share.version}</version>   <!-- use new share version -->
+            <classifier>classes</classifier>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.alfresco.surf</groupId>  <!-- Surf now maintained by Alfresco --> 
+            <artifactId>spring-surf-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${alfresco.groupId}</groupId>
+            <artifactId>share-po</artifactId>
+            <version>${share.version}</version>   <!-- use new share version -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${alfresco.groupId}</groupId>
+            <artifactId>share-po</artifactId>
+            <version>${share.version}</version>   <!-- use new share version -->
+            <classifier>tests</classifier>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-java</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>1.4.190</version>
+</dependency>
+        
+        <!-- Test NG is defined with test scope in share-po, so need it here too -->
+        <!-- Alfresco code creates a wrapper around Test NG -->
+        <dependency>
+            <groupId>org.alfresco.test</groupId>
+            <artifactId>alfresco-testng</artifactId>
+            <version>1.1</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+</project>
